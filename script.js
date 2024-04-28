@@ -1,8 +1,29 @@
+const body = document.querySelector("body");
+
+const button = document.querySelector("button");
+button.addEventListener("click", () => {
+    body.removeChild(body.lastElementChild);
+    createGrid(getSize());
+    setColor("black");
+});
+
 createGrid(16);
-changeColor("black");
+setColor("black");
+
+function getSize() {
+    let size;
+
+    do {
+        size = prompt("Size (1 - 100)");
+    } while (size < 1 || size > 100);
+
+    return size;
+}
 
 function createGrid(size) {
-    const container = document.querySelector(".container");
+    const container = document.createElement("div");
+    container.classList.add("container");
+    body.appendChild(container);
 
     for (let i = 0; i < size; i++) {
         const row = document.createElement("div");
@@ -10,14 +31,14 @@ function createGrid(size) {
         container.appendChild(row);
     
         for (let j = 0; j < size; j++) {   
-            const column = document.createElement("div");
-            column.classList.add("square");
-            row.appendChild(column);
+            const square = document.createElement("div");
+            square.classList.add("square");
+            row.appendChild(square);
         }
     }
 }
 
-function changeColor(color) {
+function setColor(color) {
     const squares = document.querySelectorAll(".square");
 
     squares.forEach((square) => {
